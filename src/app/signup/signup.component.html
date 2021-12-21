@@ -1,0 +1,35 @@
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-0 shadow rounded-3 my-5">
+            <div class="card-body p-4 p-sm-5">
+              <h5 class="card-title text-center mb-5 fw-light fs-5">Kayıt Ol</h5>
+              <form [formGroup]="this.signUpForm" (ngSubmit)="signUp()">
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" formControlName="displayName" placeholder="name@example.com" [(ngModel)]="selectedWriter.username"  required>
+                  <label for="floatingInput">Kullanıcı Adınız</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" formControlName="email" placeholder="name@example.com" [(ngModel)]="selectedWriter.email" value="{{this.selectedWriter.email}}" required>
+                  <label for="floatingInput">Email Adresiniz</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" formControlName="password" placeholder="Password" [(ngModel)]="selectedWriter.password" required>
+                  <label for="floatingPassword">Parola</label>
+                  <span>Şifreniz minimum 6 haneli olmalıdır!</span>
+                </div>                            
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-signup text-uppercase fw-bold" [disabled]="!signUpForm.valid" type="submit">Kaydı Tamamla</button>
+                </div>              
+                <br>
+                <div [ngClass]="resp.job ? 'alert alert-success':'alert alert-danger'" *ngIf="resp.message.length > 0">
+                  {{resp.message}}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

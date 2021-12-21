@@ -1,0 +1,53 @@
+<div class="container">
+    <div class=" text-center mt-5 ">
+        <h1>Soru Ekle</h1>
+    </div>
+    <div class="row ">
+        <div class="col-lg-7 mx-auto">
+            <div class="card mt-2 mx-auto p-4 bg-light">
+                <div class="card-body bg-light">
+                    <div class="container">
+                        <form #frm="ngForm" [formGroup]="questionForm" role="form" (submit)="addQuestion()">
+                            <div class="controls">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label for="form_name">Konu Başlığı *</label> <input
+                                                formControlName="qTitle" type="text" name="name" class="form-control"
+                                                placeholder="Konuyu Giriniz *" required="required"
+                                                data-error="Konu girmek zorunludur!" [(ngModel)]="selectedQuestion.qTitle"> </div>
+                                    </div>                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label for="form_need">Kategori *</label> <select formControlName="category" [(ngModel)]="selectedQuestion.category" name="need" class="form-control"
+                                                required="required" data-error="Lütfen kategori seçiniz!">
+                                                <option value="" selected disabled>--Lütfen Kategori Seçiniz--</option>
+                                                <option>Angular</option>
+                                                <option>Web Programlama</option>
+                                                <option>Yapay Zeka</option>
+                                                <option>Diğer</option>
+                                            </select> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label for="form_message">Açıklama *</label> <textarea
+                                            formControlName="qDesc" name="message" class="form-control"
+                                                placeholder="Açıklamayı Giriniz *" rows="4" required="required"
+                                                data-error="Lütfen açıklamayı doldurunuz!" [(ngModel)]="selectedQuestion.qDesc"></textarea> </div>
+                                    </div>
+                                    <div class="col-md-12 mt-4 form-group"> <input type="submit" [disabled]="!questionForm"
+                                            class="btn btn-success btn-send pt-2 btn-block " value="Soruyu Oluştur">
+                                    </div>
+                                </div>
+                                <div class="mt-5" [ngClass]="resp.job ? 'alert alert-success':'alert alert-danger'" *ngIf="resp.message.length > 0">
+                                    {{resp.message}}
+                                  </div>  
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+    </div>
+</div>

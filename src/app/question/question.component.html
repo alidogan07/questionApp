@@ -1,0 +1,92 @@
+<section class="page-title bg-1">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block text-center">
+                    <span class="text-black">Soruyu İnceleyebilirsiniz</span>
+                    <h1 class="text-black">SORU</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section blog-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12 mb-5">
+                        <div class="single-blog-item">
+                            <div class="blog-item-content mt-5" >
+                                <div class="blog-item-meta mb-3">
+                                    <span class="text-color-2 text-capitalize mr-3"><i
+                                            class="icofont-book-mark mr-2"></i>{{selectedQuestion.category}} </span>
+                                    <span class="text-muted text-capitalize mr-3"><i class="icofont-comment mr-2"></i>{{comments?.length}}
+                                        Yorum </span>
+                                    <span class="text-black text-capitalize mr-3"><i class="icofont-calendar mr-2"></i>
+                                        {{selectedQuestion.date | date : 'dd.MM.yyyy'}}</span>
+                                </div>
+
+                                <h2 class="mb-4 text-md">{{selectedQuestion.qTitle}}</h2>
+
+                                <p class="lead mb-4">{{selectedQuestion.qDesc}}
+                                </p>
+
+                            </div>
+                            <h5>Yazar : {{selectedQuestion.writer}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" >
+                        <div class="comment-area mt-4 mb-5">
+                            <h4 class="mb-4">Bu gönderi için {{comments?.length}} yorum bulunmaktadır... </h4>
+                            <ul class="comment-tree list-unstyled">
+                                <li class="mb-5" *ngFor="let comment of comments">
+                                    <div class="comment-area-box">
+                                        <div class="comment-info">
+                                            <h5 class="mb-1">{{comment?.writer}}</h5>
+                                            <span class="date-comm">{{comment?.date | date : 'HH:mm dd.MM.yyyy'}}</span>
+                                        </div>
+
+                                        <div class="comment-content mt-3">
+                                            <p>{{comment?.comment}}</p>
+                                        </div>
+                                        <div>
+                                            <button *ngIf="uid == comment.uid || this.fbService.admin" class="btn btn-warning btn-sm" (click)="selectComment(comment);edit=true">Düzenle</button>
+                                            <button *ngIf="uid == comment.uid || this.fbService.admin" class="btn btn-danger btn-sm" (click)="selectComment(comment);del = true">Sil</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row alert alert-secondary" *ngIf="del">
+                        <div class="col-md-12">
+                            <p><b>'{{selectedComment.comment}}' yorumunuz silinecektir. Onaylıyor musunuz?</b></p>
+                            <button class="btn btn-danger btn-sm" (click)="deleteComment()">Sil</button>
+                            <button class="btn btn-primary btn-sm ml-2" (click)="del=false">Silme</button>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12" style="background-color: pink;" *ngIf="this.fbService.isLogin()">
+                        <form [formGroup]="commentForm" class="comment-form my-5" id="comment-form">
+                            <h4 class="mb-4">Yorum Yaz</h4>
+                            <textarea class="form-control mb-4" formControlName="comment" name="comment" id="comment" cols="30" rows="5"
+                                placeholder="Yorum yazınız..." [(ngModel)]="selectedComment.comment" required></textarea>
+
+                            <input class="btn btn-main-2 btn-round-full" type="submit" name="submit-contact"
+                                id="submit_contact" value="Yorumu Gönder" (click)="addComment()">
+                            <button *ngIf="selectedComment.key" class="btn btn-warning btn-sm" (click)="editComment()">Düzenle</button>
+                        </form>
+                    </div>
+                    <div class="mt-5" [ngClass]="resp.job ? 'alert alert-success':'alert alert-danger'" *ngIf="resp.message?.length > 0">
+                        {{resp.message}}
+                      </div>  
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

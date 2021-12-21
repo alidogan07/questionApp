@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "questionappportal": {
+      "hosting": {
+        "QAP": [
+          "questionanswerportal"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "questionappportal"
+  }
+}

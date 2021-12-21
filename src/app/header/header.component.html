@@ -1,0 +1,14 @@
+<nav class="navbar navbar-light bg-light static-top">    
+    <div class="col-md-9">
+        <a class="navbar-brand" [routerLink]="['/']">Question Answer Portal</a>
+        <a class="navbar-brand" [routerLink]="['/Questions']">Sorular</a>
+        <a class="navbar-brand" *ngIf="this.fbService.isLogin()" [routerLink]="['/MyQuestions']">Sorularım</a>
+        <a class="navbar-brand" *ngIf="this.fbService.isLogin()" [routerLink]="['/QuestionAdd']">Soru Ekle</a>
+        <a class="navbar-brand bg-warning" *ngIf="this.fbService.isLogin() && this.fbService.admin" [routerLink]="['/AllQuestions']">Tüm Sorular</a>
+    </div>        
+    <div class="col-md-3">
+        <a class="btn btn-success" *ngIf="!this.fbService.isLogin()" [routerLink]="['/Login']">Giriş Yap</a>
+        <a class="btn btn-primary sign" *ngIf="!this.fbService.isLogin()" (click)="clearMail()" [routerLink]="['/SignUp']">Kayıt Ol</a>
+        <a class="btn btn-danger sign" *ngIf="this.fbService.isLogin()" [routerLink]="['/']" (click)="this.fbService.logOut()">Çıkış Yap</a>
+    </div>
+</nav>

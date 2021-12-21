@@ -1,0 +1,87 @@
+<div class="row alert alert-secondary" *ngIf="del">
+    <div class="col-md-12">
+        <p><b>{{selectedQuestion.qTitle}} başlıklı sorunuz silinecektir. Onaylıyor musunuz?</b></p>
+        <button class="btn btn-danger btn-sm" (click)="deleteQues()">Sil</button>
+        <button class="btn btn-primary btn-sm m-lg-2" (click)="del=false">Silme</button>
+    </div>
+</div>
+<div *ngIf="edit" class="container" >
+    <div class=" text-center mt-5 ">
+        <h1>Soru Düzenle</h1>
+    </div>
+    <div class="row ">
+        <div class="col-lg-7 mx-auto">
+            <div class="card mt-2 mx-auto p-4 bg-light">
+                <div class="card-body bg-light">
+                    <div class="container">
+                        <form #frm="ngForm" [formGroup]="questionForm" role="form" (submit)="editQuestion()">
+                            <div class="controls">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label for="form_name">Konu Başlığı *</label> <input
+                                                formControlName="qTitle" type="text" name="name" class="form-control"
+                                                placeholder="Konuyu Giriniz *" required="required"
+                                                data-error="Konu girmek zorunludur!" [(ngModel)]="selectedQuestion.qTitle"> </div>
+                                    </div>                                    
+                                </div>
+                                <div class="row">                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label for="form_need">Kategori *</label> <select formControlName="category" [(ngModel)]="selectedQuestion.category" name="need" class="form-control"
+                                                required="required" data-error="Lütfen kategori seçiniz!">
+                                                <option value="" selected disabled>--Lütfen Kategori Seçiniz--</option>
+                                                <option>Angular</option>
+                                                <option>Web Programlama</option>
+                                                <option>Yapay Zeka</option>
+                                                <option>Diğer</option>
+                                            </select> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label for="form_message">Açıklama *</label> <textarea
+                                            formControlName="qDesc" name="message" class="form-control"
+                                                placeholder="Açıklamayı Giriniz *" rows="4" required="required"
+                                                data-error="Lütfen açıklamayı doldurunuz!" [(ngModel)]="selectedQuestion.qDesc"></textarea> </div>
+                                    </div>
+                                    <div class="col-md-12 form-group"> <input type="submit" [disabled]="!questionForm"
+                                            class="btn btn-success btn-send pt-2 btn-block " value="Soruyu Düzenle">
+                                            <button (click)="edit=false" class="btn btn-danger btn-send pt-2 btn-block m-lg-2">Kapat</button>                                        
+                                    </div>
+                                    
+                                </div>
+                                <div *ngIf="this.resp.message?.length > 0" class="alert alert-success" role="alert">
+                                    {{this.resp.message}}
+                                </div>  
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+    </div>
+</div>
+
+<div class="container table-responsive py-5">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Konu Başlığı</th>
+                <th scope="col">İçerik</th>
+                <th scope="col">Yazar</th>
+                <th scope="col">Düzenle</th>
+                <th scope="col">Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ques of questions">
+                <th scope="row">{{ques.key}}</th>
+                <td>{{ques.qTitle}}</td>
+                <td><a [routerLink]="['/Question/',ques.key]" class="btn btn-success">Aç</a></td>
+                <td><a href="">{{ques.writer}}</a></td>
+                <td><button class="btn btn-warning" (click)="selectQuestion(ques);edit=true">+</button></td>
+                <td><button class="btn btn-danger" (click)="selectQuestion(ques);del = true">X</button></td>
+            </tr>           
+        </tbody>
+    </table>
+</div>
